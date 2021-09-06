@@ -4,6 +4,7 @@
 --    Percentage - Fill percentage-wise
 --         Exact - Fill with exact amounts
 
+-- The image which is the background of bucketss
 BucketImage = {
   w = 50,
   h = 50,
@@ -13,6 +14,7 @@ BucketImage = {
   end
 }
 
+-- Individual bucket
 Bucket = Class{
   init = function(self)
     self.parent = nil
@@ -39,8 +41,9 @@ Bucket = Class{
     
     BucketImage:draw(x,y)
     
+    local money = string.format("%.2f", self.money)
     love.graphics.setColor(1,1,1)
-    love.graphics.printf(tostring(self.money), x - BucketImage.w, y, BucketImage.w * 2, "center")
+    love.graphics.printf(money, x - BucketImage.w, y, BucketImage.w * 2, "center")
   end,
   
   addChange = function(self, change)
@@ -81,6 +84,10 @@ Bucket = Class{
   
   addTransaction = function(self, change)
     
+  end,
+  
+  addChild = function(self)
+    table.insert(self.children, Bucket())
   end,
 }
 

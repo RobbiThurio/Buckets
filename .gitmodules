@@ -4,3 +4,6 @@
 [submodule "libs/useful"]
 	path = libs/useful
 	url = https://github.com/RobbiThurio/useful.git
+[submodule "libs/windfield"]
+	path = libs/windfield
+	url = https://github.com/a327ex/windfield

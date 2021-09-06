@@ -1,3 +1,4 @@
+-- The screen which displays the layout of buckets
 Screen = Class{
   init = function(self)
     self.canvas = love.graphics.newCanvas(canvas.w, canvas.h)

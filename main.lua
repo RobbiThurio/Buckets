@@ -5,6 +5,7 @@ love.graphics.setLineWidth(5)
 
 require "libs.useful"
 Class = require "libs.hump.class"
+wf = require "libs.windfield.windfield"
 
 local w,h = love.window.getMode()
 screen = {}
@@ -16,42 +17,14 @@ canvas = {
 canvas.scale = screen.w / canvas.w
 canvas.h = canvas.w / screen.aspect
 
+
+
+Handler = require "entities.inputHandler"
+
 Bucket = require "entities.bucket"
 BucketScreen = require "entities.bucketScreen"
 
-keyp = {}
-keyh = {}
-
 time = 0
-
-function love.mousepressed(x,y,b)
-  if b == 1 then
-    
-  end
-end
-
-function love.mousereleased(x,y,b)
-  if b == 1 then
-    
-  end
-end
-
-function love.keypressed(key)
-	--fullscreen
-	if key == "f11" then
-		love.window.setFullscreen(not love.window.getFullscreen())
-  
-  elseif key == "escape" then
-    love.event.quit()
-  
-  elseif key == "r" then
-    love.load()
-  
-  else
-    keyp[key] = true
-    keyh[key] = true
-  end
-end
 
 function love.load()
   top = Bucket()
@@ -59,20 +32,32 @@ function love.load()
   top.filler = true
   top.fillerMode = "Even"
   top:addIncome(500.11)
+  
+  Handler:pbind("restart", "r")
+  Handler:pbind("quit", "escape")
+  Handler:pbind("add", "a")
+  Handler:pbind("child", "c")
 
   sc = BucketScreen()
 end
 
-function love.keyreleased(key)
-  keyh[key] = false
-end
-
 function love.update(dt)
   time = time + 1
+  Handler:update()
   
+  if actions.quit then
+    love.event.quit()
+  elseif actions.restart then
+    love.load()
+  end
   
+  if actions.add then
+    top:addIncome(50.11)
+  end
   
-  keyp = {}
+  if actions.child then
+    top:addChild()
+  end
 end
 
 function love.draw()
