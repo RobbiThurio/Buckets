@@ -42,6 +42,20 @@ Handler = {
     end
   end,
   
+  unbind = function(self, inputs)
+    
+  end,
+  
+  unbindAll = function(self)
+    self.pbindings = {}
+    self.hbindings = {}
+    
+    self:unbindCallback()
+  end,
+  
+  unbindCallback = function(self)
+  end,
+  
   scroll = function(self, x, y)
     self:scrollCallback(x,y)
   end,

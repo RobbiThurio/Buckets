@@ -17,12 +17,15 @@ canvas = {
 canvas.scale = screen.w / canvas.w
 canvas.h = canvas.w / screen.aspect
 
-
-
 Handler = require "entities.inputHandler"
 
 Bucket = require "entities.bucket"
 BucketScreen = require "entities.bucketScreen"
+
+fonts = {
+  R = love.graphics.newFont("assets/Roboto-Regular.ttf", 24),
+  L = love.graphics.newFont("assets/Roboto-Light.ttf", 24),
+}
 
 time = 0
 
@@ -37,8 +40,6 @@ function love.load()
   Handler:pbind("quit", "escape")
   Handler:pbind("add", "a")
   Handler:pbind("child", "c")
-
-  sc = BucketScreen()
 end
 
 function love.update(dt)
@@ -61,5 +62,5 @@ function love.update(dt)
 end
 
 function love.draw()
-  sc:draw()
+  Screen:draw()
 end

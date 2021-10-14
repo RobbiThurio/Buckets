@@ -4,10 +4,10 @@
 --    Percentage - Fill percentage-wise
 --         Exact - Fill with exact amounts
 
--- The image which is the background of bucketss
+-- The image which is the background of buckets
 BucketImage = {
-  w = 50,
-  h = 50,
+  w = 100,
+  h = 100,
   draw = function(self,x,y)
     love.graphics.setColor(0.3, 0.3, 0.3)
     love.graphics.rectangle("fill", x - self.w / 2, y - self.w / 2, self.w, self.h)
@@ -19,6 +19,9 @@ Bucket = Class{
   init = function(self)
     self.parent = nil
     self.money = 0
+    
+    self.name = "Bucket"
+    
     self.filler = false
     self.fillerMode = nil
     self.children = {}
@@ -41,8 +44,13 @@ Bucket = Class{
     
     BucketImage:draw(x,y)
     
-    local money = string.format("%.2f", self.money)
     love.graphics.setColor(1,1,1)
+    
+    love.graphics.setFont(fonts.R)
+    love.graphics.printf(self.name, x - BucketImage.w, y - BucketImage.h / 3, BucketImage.w * 2, "center")
+    
+    local money = string.format("%.2f", self.money)
+    love.graphics.setFont(fonts.L)
     love.graphics.printf(money, x - BucketImage.w, y, BucketImage.w * 2, "center")
   end,
   
