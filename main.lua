@@ -29,6 +29,13 @@ fonts = {
 
 time = 0
 
+Handler:hbind("zoomin", "up")
+Handler:hbind("zoomout", "down")
+Handler:hbind("right", "d")
+Handler:hbind("left", "a")
+Handler:hbind("up", "w")
+Handler:hbind("down", "s")
+
 function love.load()
   top = Bucket()
   top.children = {Bucket(), Bucket(), Bucket(), Bucket(), Bucket(), Bucket()}
@@ -38,7 +45,7 @@ function love.load()
   
   Handler:pbind("restart", "r")
   Handler:pbind("quit", "escape")
-  Handler:pbind("add", "a")
+  Handler:pbind("add", "v")
   Handler:pbind("child", "c")
 end
 

@@ -8,7 +8,26 @@ Screen = {
   x = canvas.w / 2,
   y = canvas.h / 2,
   
+  move = function(self, x, y)
+    self.x = self.x + x / self.zoom * 10
+    self.y = self.y + y / self.zoom * 10
+  end,
+  
+  zoomF = function(self, amnt)
+    self.zoom = self.zoom + amnt * self.zoom / 25
+    self.zoom = clamp(self.zoom, 0.5, 10)
+  end,
+  
   draw = function(self)
+    local LR = bti(actions.right) - bti(actions.left)
+    local UD = bti(actions.down) - bti(actions.up)
+    
+    self:move(LR,UD)
+    
+    local Z = bti(actions.zoomin) - bti(actions.zoomout)
+    
+    self:zoomF(Z)
+    
     love.graphics.setCanvas(self.canvas)
     love.graphics.clear()
     
@@ -16,10 +35,6 @@ Screen = {
     love.graphics.rectangle("fill", 10, 10, canvas.w - 20, canvas.h - 20)
     
     love.graphics.setColor(1,1,1)
-    
-    self.zoom = 1 + abs(dsin(time))
-    self.x = canvas.w / 2 + 200 * dcos(time * 1.5)
-    self.y = canvas.h / 2 + 200 * dsin(time)
     
     love.graphics.translate(canvas.w / 2 - self.x * self.zoom, canvas.h / 2 - self.y * self.zoom)
     love.graphics.scale(self.zoom, self.zoom)
